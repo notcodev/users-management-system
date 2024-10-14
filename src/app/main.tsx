@@ -1,11 +1,11 @@
 import './global.css'
+import { QueryClient } from '@tanstack/react-query'
 import React, { Suspense } from 'react'
 import ReactDOM from 'react-dom/client'
 import { Application } from './application'
 import { Providers } from './providers'
-import { QueryClient } from '@tanstack/react-query'
 
-const root = document.getElementById('root')!
+const root = document.querySelector('#root')!
 
 const queryClient = new QueryClient()
 

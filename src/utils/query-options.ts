@@ -1,13 +1,13 @@
-import { api } from '@/api'
-import { PostUpdateUserParams } from '@/api/endpoints'
-import { PostCreateUserParams } from '@/api/endpoints/users/create/post'
-import { updateToken } from '@/api/request'
 import {
   queryOptions,
   useMutation,
   useQueryClient,
 } from '@tanstack/react-query'
-import { useNavigate, useRouter } from '@tanstack/react-router'
+import { useNavigate } from '@tanstack/react-router'
+import { api } from '@/api'
+import { PostUpdateUserParams } from '@/api/endpoints'
+import { PostCreateUserParams } from '@/api/endpoints/users/create/post'
+import { updateToken } from '@/api/request'
 
 export const profileOptions = () =>
   queryOptions({

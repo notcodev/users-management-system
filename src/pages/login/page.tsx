@@ -1,7 +1,8 @@
-import { useLoginMutation } from '@/utils/query-options'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useNavigate } from '@tanstack/react-router'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
-import { zodResolver } from '@hookform/resolvers/zod'
+import { Button } from '@/components/ui/button'
 import {
   Form,
   FormControl,
@@ -11,8 +12,7 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { Button } from '@/components/ui/button'
-import { useNavigate } from '@tanstack/react-router'
+import { useLoginMutation } from '@/utils/query-options'
 
 const loginSchema = z.object({
   login: z.string().min(1, 'Поле login не может быть пустым'),

@@ -1,10 +1,14 @@
-import { Badge } from '@/components/ui/badge'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useQuery } from '@tanstack/react-query'
+import { CheckIcon, ChevronsUpDownIcon } from 'lucide-react'
+import { useId } from 'react'
+import { useForm, UseFormReturn } from 'react-hook-form'
+import { z } from 'zod'
 import { Button } from '@/components/ui/button'
 import {
   Command,
   CommandEmpty,
   CommandGroup,
-  CommandInput,
   CommandItem,
   CommandList,
 } from '@/components/ui/command'
@@ -15,7 +19,6 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from '@/components/ui/dialog'
 import {
   Form,
@@ -31,26 +34,8 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover'
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table'
 import { cn } from '@/utils/cn'
-import {
-  listRolesOptions,
-  listUsersOptions,
-  useUpdateUserMutation,
-} from '@/utils/query-options'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useQuery } from '@tanstack/react-query'
-import { ReactNode, useId } from 'react'
-import { useForm, UseFormReturn } from 'react-hook-form'
-import { z } from 'zod'
-import { CheckIcon, ChevronsUpDownIcon } from 'lucide-react'
+import { listRolesOptions, useUpdateUserMutation } from '@/utils/query-options'
 
 const editUserSchema = z.object({
   login: z.string().min(1, 'Поле Логин не может быть пустым'),
@@ -185,11 +170,12 @@ const RolesField = ({
                   role="combobox"
                   className={cn(
                     ' justify-between',
+                    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
                     !field.value && 'text-muted-foreground',
                   )}
                   disabled={isPending}
                 >
-                  {field.value.length !== 0
+                  {field.value.length > 0
                     ? field.value.join(', ')
                     : 'Выберите роли'}
                   <ChevronsUpDownIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
@@ -212,8 +198,8 @@ const RolesField = ({
 
                       return rolesQuery.data.map(({ role }) => (
                         <RolesOption
-                          value={role.name}
                           key={role.name}
+                          value={role.name}
                           isActive={field.value.includes(role.name)}
                           form={form}
                         />

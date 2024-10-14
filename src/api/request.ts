@@ -1,6 +1,6 @@
 import wretch, { WretchResponse } from 'wretch'
-import QueryStringAddon from 'wretch/addons/queryString'
 import FormDataAddon from 'wretch/addons/formData'
+import QueryStringAddon from 'wretch/addons/queryString'
 
 export type WretchError<ErrorBody> = Error & {
   status: number
@@ -38,9 +38,11 @@ const createRequestInstance = () => {
     getToken: () => token || localStorage.getItem('access_token'),
     updateToken: (newToken: string | null) => {
       token = newToken
-      token
-        ? localStorage.setItem('access_token', token)
-        : localStorage.removeItem('access_token')
+      if (token) {
+        localStorage.setItem('access_token', token)
+      } else {
+        localStorage.removeItem('access_token')
+      }
     },
   }
 }

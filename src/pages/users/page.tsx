@@ -1,5 +1,52 @@
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useQuery } from '@tanstack/react-query'
+import {
+  EllipsisVerticalIcon,
+  KeyRoundIcon,
+  TrashIcon,
+  UserIcon,
+} from 'lucide-react'
+import { useId, useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { z } from 'zod'
+import { UserDto } from '@/api/types'
+import {
+  AlertDialog,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from '@/components/ui/alert-dialog'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
 import {
   Table,
   TableBody,
@@ -14,54 +61,7 @@ import {
   useDeletUserMutation,
   useUpdateUserMutation,
 } from '@/utils/query-options'
-import { useQuery } from '@tanstack/react-query'
 import { EditUserFormDialog } from './components'
-import {
-  AlertDialog,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from '@/components/ui/alert-dialog'
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
-import {
-  EllipsisVerticalIcon,
-  KeyRoundIcon,
-  TrashIcon,
-  UserIcon,
-} from 'lucide-react'
-import { UserDto } from '@/api/types'
-import { useId, useState } from 'react'
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog'
-import { z } from 'zod'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
 
 const UsersTable = () => {
   const usersQuery = useQuery(listUsersOptions())
@@ -83,7 +83,7 @@ const UsersTable = () => {
           <TableHead>Фамилия</TableHead>
           <TableHead>Логин</TableHead>
           <TableHead>Роли</TableHead>
-          <TableHead className="w-12"></TableHead>
+          <TableHead className="w-12" />
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -96,7 +96,7 @@ const UsersTable = () => {
             <TableCell>
               <div className="flex gap-1">
                 {user.roles.map((role) => (
-                  <Badge variant="outline" key={role}>
+                  <Badge key={role} variant="outline">
                     {role}
                   </Badge>
                 ))}
